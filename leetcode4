@@ -1,0 +1,33 @@
+def longestPalindrome(s: str) -> str:
+        l = 0
+        r = 0
+        result = ''
+        rel_ori = []
+        rel_new = []
+        len_num = len(s) 
+        hash = {}
+        while l < len_num:
+            while r <len_num and s[r] not in hash:
+                hash[s[r]] = r+1
+                rel_new.append(s[r])
+                r += 1
+            if r >= len_num:    
+                break
+            else:
+                    del rel_new[0:hash[s[r]]-l-1]
+                    if len(rel_new) > len(rel_ori):
+                        rel_ori = rel_new
+                        rel_ori.append(s[r])
+                    new_l = hash[s[r]]
+                    for i in range(l, new_l):
+                        del(hash[s[i]])
+                    rel_new = []
+                    l = new_l
+        if rel_ori == []:
+            result = s[0]
+        for i in range(0,len(rel_ori)):
+            result += rel_ori[i]
+      
+           
+        return result
+        #return rel_ori
